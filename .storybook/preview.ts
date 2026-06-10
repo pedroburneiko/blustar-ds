@@ -4,11 +4,12 @@ import "../src/styles/globals.css";
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: "light",
+      default: "black",
       values: [
-        { name: "light", value: "#FFFFFF" },
-        { name: "subtle", value: "#F7F7F7" },
+        { name: "black", value: "#000000" },
         { name: "dark", value: "#04001E" },
+        { name: "subtle", value: "#F7F7F7" },
+        { name: "light", value: "#FFFFFF" },
       ],
     },
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },

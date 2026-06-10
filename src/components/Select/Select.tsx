@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
+import { Chevron } from "../Icon/Icon";
 
 export interface SelectOption {
   label: string;
@@ -165,12 +166,11 @@ export function Select({
         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        <svg
-          width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"
+        <Chevron
+          size={18}
+          color="#0FC4D5"
           style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform .18s", flexShrink: 0 }}
-        >
-          <path d="M5 3.7297L8.833 0L10 1.1351L5 6L0 1.1351L1.167 0L5 3.7297Z" fill="#0FC4D5" />
-        </svg>
+        />
       </button>
 
       {open && (

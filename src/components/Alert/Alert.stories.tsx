@@ -13,5 +13,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Sucesso: Story = {};
-
-export const ComLargura: Story = { args: { width: 360, children: "Alterações salvas com sucesso." } };

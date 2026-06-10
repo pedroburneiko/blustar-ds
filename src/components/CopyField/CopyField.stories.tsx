@@ -15,8 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Padrao: Story = {};
 
-export const Largo: Story = { args: { value: "https://app.blustar.com/invite/9f3a21cd7b40", width: 480 } };
-
 export const TesteDeCopia: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
