@@ -32,6 +32,8 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
   return (
     <div
       className={`bs-copyfield ${className}`}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#0FC4D5")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#305B9B")}
       style={{
         display: "flex",
         alignItems: "center",
@@ -48,6 +50,7 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
         fontSize: 14,
         fontWeight: 400,
         boxSizing: "border-box",
+        transition: "border-color .15s ease",
       }}
     >
       <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -57,6 +60,8 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
         type="button"
         onClick={copy}
         aria-label={copied ? "Copiado" : "Copiar"}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         style={{
           flexShrink: 0,
           display: "inline-flex",
@@ -69,6 +74,8 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
           background: "transparent",
           cursor: "pointer",
           outline: "none",
+          transform: "scale(1)",
+          transition: "transform .12s ease",
         }}
       >
         {copied ? (

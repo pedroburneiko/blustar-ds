@@ -158,10 +158,12 @@ export function Select({
           cursor: disabled ? "not-allowed" : "pointer",
           opacity: disabled ? 0.5 : 1,
           outline: "none",
-          transition: "border-color .15s",
+          transition: "border-color .15s ease, background .15s ease",
         }}
         onFocus={(e) => (e.currentTarget.style.borderColor = "#0FC4D5")}
         onBlur={(e) => (e.currentTarget.style.borderColor = "#242C36")}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "#1C232C")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "#161B21")}
       >
         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {selectedOption ? selectedOption.label : placeholder}

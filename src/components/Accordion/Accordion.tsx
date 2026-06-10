@@ -43,6 +43,8 @@ export function Accordion({
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         style={{
           width: "100%",
           height: 36,
@@ -60,6 +62,8 @@ export function Accordion({
           cursor: "pointer",
           outline: "none",
           textAlign: "left",
+          opacity: 1,
+          transition: "opacity .15s ease",
         }}
       >
         <span>{title}</span>
@@ -78,6 +82,8 @@ export function Accordion({
                 type="button"
                 disabled={it.disabled}
                 onClick={() => onItemClick?.(it.label)}
+                onMouseEnter={(e) => { if (!it.disabled) e.currentTarget.style.color = "#FFFFFF"; }}
+                onMouseLeave={(e) => { if (!it.disabled) e.currentTarget.style.color = "#707070"; }}
                 style={{
                   width: "100%",
                   height: 30,
@@ -94,6 +100,7 @@ export function Accordion({
                   opacity: it.disabled ? 0.5 : 1,
                   outline: "none",
                   textAlign: "left",
+                  transition: "color .15s ease",
                 }}
               >
                 {it.label}
