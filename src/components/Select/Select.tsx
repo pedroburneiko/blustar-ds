@@ -1,0 +1,240 @@
+import { useEffect, useId, useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
+
+export interface SelectOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+
+export interface SelectProps {
+  /** Lista de opções. */
+  options: SelectOption[];
+  /** Valor selecionado (modo controlado). */
+  value?: string;
+  /** Valor inicial (modo não controlado). */
+  defaultValue?: string;
+  /** Texto exibido quando nada está selecionado. */
+  placeholder?: string;
+  /** Desabilita o componente inteiro. */
+  disabled?: boolean;
+  /** Rótulo acessível. */
+  "aria-label"?: string;
+  /** Disparado quando uma opção é escolhida. */
+  onChange?: (value: string) => void;
+  className?: string;
+}
+
+/**
+ * Select (dropdown) do Blustar Design System.
+ * Acessível (role=listbox), com navegação por teclado,
+ * destaque no item em foco e fechamento ao clicar fora.
+ */
+export function Select({
+  options,
+  value,
+  defaultValue,
+  placeholder = "Selecione",
+  disabled = false,
+  onChange,
+  className = "",
+  ...aria
+}: SelectProps) {
+  const isControlled = value !== undefined;
+  const [internal, setInternal] = useState(defaultValue ?? "");
+  const selected = isControlled ? value : internal;
+
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+
+  const selectedOption = options.find((o) => o.value === selected);
+
+  function commit(option: SelectOption) {
+    if (option.disabled) return;
+    if (!isControlled) setInternal(option.value);
+    onChange?.(option.value);
+    setOpen(false);
+  }
+
+  function toggle() {
+    if (disabled) return;
+    setOpen((o) => {
+      const next = !o;
+      if (next) {
+        const i = options.findIndex((o) => o.value === selected);
+        setActiveIndex(i >= 0 ? i : 0);
+      }
+      return next;
+    });
+  }
+
+  function moveActive(delta: number) {
+    setActiveIndex((i) => {
+      let next = i;
+      for (let step = 0; step < options.length; step++) {
+        next = (next + delta + options.length) % options.length;
+        if (!options[next]?.disabled) return next;
+      }
+      return i;
+    });
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLButtonElement>) {
+    if (disabled) return;
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        if (!open) toggle();
+        else moveActive(1);
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (!open) toggle();
+        else moveActive(-1);
+        break;
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        if (open && options[activeIndex]) commit(options[activeIndex]);
+        else toggle();
+        break;
+      case "Escape":
+        setOpen(false);
+        break;
+      case "Home":
+        if (open) { e.preventDefault(); setActiveIndex(0); }
+        break;
+      case "End":
+        if (open) { e.preventDefault(); setActiveIndex(options.length - 1); }
+        break;
+    }
+  }
+
+  // Fecha ao clicar fora.
+  useEffect(() => {
+    if (!open) return;
+    function onDocClick(e: MouseEvent) {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [open]);
+
+  return (
+    <div
+      ref={rootRef}
+      className={`bs-select ${className}`}
+      style={{ position: "relative", width: 223, fontFamily: '"Versos", sans-serif' }}
+    >
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={toggle}
+        onKeyDown={onKeyDown}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-label={aria["aria-label"]}
+        style={{
+          width: "100%",
+          height: 34,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 8,
+          padding: "0 12px 0 16px",
+          borderRadius: 11.5,
+          border: "1px solid #305B9B",
+          background: "#061833",
+          color: "#A6D9DE",
+          fontSize: 12,
+          fontWeight: 400,
+          cursor: disabled ? "not-allowed" : "pointer",
+          opacity: disabled ? 0.5 : 1,
+          outline: "none",
+          transition: "border-color .15s",
+        }}
+        onFocus={(e) => (e.currentTarget.style.borderColor = "#0FC4D5")}
+        onBlur={(e) => (e.currentTarget.style.borderColor = "#305B9B")}
+      >
+        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <svg
+          width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"
+          style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform .18s", flexShrink: 0 }}
+        >
+          <path d="M5 3.7297L8.833 0L10 1.1351L5 6L0 1.1351L1.167 0L5 3.7297Z" fill="#0FC4D5" />
+        </svg>
+      </button>
+
+      {open && (
+        <ul
+          id={listId}
+          role="listbox"
+          tabIndex={-1}
+          style={{
+            position: "absolute",
+            top: "calc(100% + 6px)",
+            left: 0,
+            width: "100%",
+            margin: 0,
+            padding: 2.5,
+            listStyle: "none",
+            background: "#061833",
+            border: "1px solid #305B9B",
+            borderRadius: 11.5,
+            boxShadow: "0 8px 24px rgba(4,0,30,.35)",
+            zIndex: 20,
+            maxHeight: 240,
+            overflowY: "auto",
+          }}
+        >
+          {options.map((opt, i) => {
+            const isSelected = opt.value === selected;
+            const isActive = i === activeIndex;
+            return (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                aria-disabled={opt.disabled || undefined}
+                onMouseEnter={() => !opt.disabled && setActiveIndex(i)}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => commit(opt)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  height: 35,
+                  padding: "0 14px 0 16px",
+                  borderRadius: 12,
+                  color: opt.disabled ? "#5C7BA6" : "#A6D9DE",
+                  fontSize: 12,
+                  fontWeight: 400,
+                  cursor: opt.disabled ? "not-allowed" : "pointer",
+                  background: isActive && !opt.disabled ? "#122C53" : "transparent",
+                  transition: "background .12s",
+                }}
+              >
+                <span>{opt.label}</span>
+                {isSelected && (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M11.7 3.7L5.5 9.9 2.3 6.7" stroke="#0FC4D5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+Select.displayName = "Select";

@@ -9,6 +9,7 @@ export const palette = {
     50: "#DFFCFF",
     100: "#BFFAFF",
     200: "#A6D9DE",
+    400: "#0FC4D5", // cyan vivo (acento/ícone)
     500: "#3FCCE3", // cor principal do Blustar
   },
   blue: {
@@ -16,8 +17,10 @@ export const palette = {
     500: "#3259FF",
   },
   navy: {
+    600: "#122C53", // navy de destaque (hover de item)
     700: "#061833",
     900: "#04001E", // ink — texto principal
+    border: "#305B9B", // borda sobre superfícies navy
   },
   // Neutros (paleta neutra.svg)
   neutral: {
