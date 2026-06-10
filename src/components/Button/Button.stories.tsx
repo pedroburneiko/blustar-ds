@@ -28,6 +28,9 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = { args: { variant: "primary" } };
 export const Secondary: Story = { args: { variant: "secondary" } };
 export const Ghost: Story = { args: { variant: "ghost" } };
+export const ComIcone: Story = {
+  args: { variant: "primary", leftIcon: <span>+</span>, children: "Button" },
+};
 export const Loading: Story = { args: { loading: true, children: "Carregando" } };
 export const Disabled: Story = { args: { disabled: true } };
 
