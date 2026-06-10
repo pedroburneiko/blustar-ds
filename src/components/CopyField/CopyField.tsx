@@ -60,8 +60,8 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
         type="button"
         onClick={copy}
         aria-label={copied ? "Copiado" : "Copiar"}
-        onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         style={{
           flexShrink: 0,
           display: "inline-flex",
@@ -74,8 +74,8 @@ export function CopyField({ value, width = 649, onCopy, className = "" }: CopyFi
           background: "transparent",
           cursor: "pointer",
           outline: "none",
-          transform: "scale(1)",
-          transition: "transform .12s ease",
+          opacity: 1,
+          transition: "opacity .12s ease",
         }}
       >
         {copied ? (

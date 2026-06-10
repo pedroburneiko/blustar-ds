@@ -20,17 +20,17 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const base =
   "inline-flex items-center justify-center gap-2 font-semibold rounded-md " +
-  "transition-all duration-150 ease-out select-none active:scale-[0.97] " +
+  "transition-colors duration-150 ease-out select-none " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 " +
-  "disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+  "disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants: Record<ButtonVariant, string> = {
   primary:
     "bg-cyan-400 text-white hover:bg-[#0DB3C2] active:bg-[#0A98A5]",
   secondary:
-    "bg-transparent text-neutral-800 border-2 border-neutral-800 hover:bg-neutral-50 active:bg-neutral-200",
+    "bg-transparent text-neutral-400 border-2 border-neutral-400 hover:text-white hover:border-white active:opacity-80",
   ghost:
-    "bg-transparent text-neutral-800 underline underline-offset-4 px-0 hover:text-cyan-400 active:opacity-70",
+    "bg-transparent text-neutral-400 underline underline-offset-4 px-0 hover:text-white active:opacity-70",
 };
 
 const sizes: Record<ButtonSize, string> = {
