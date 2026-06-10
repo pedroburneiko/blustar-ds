@@ -26,17 +26,17 @@ const base =
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand text-navy-900 hover:bg-blue-400 hover:text-white active:bg-blue-500 active:text-white",
+    "bg-cyan-400 text-white hover:bg-[#0DB3C2] active:bg-[#0A98A5]",
   secondary:
-    "bg-transparent text-navy-900 border border-borderStrong border-neutral-300 hover:bg-neutral-50 active:bg-neutral-200",
+    "bg-transparent text-neutral-800 border-2 border-neutral-800 hover:bg-neutral-50 active:bg-neutral-200",
   ghost:
-    "bg-transparent text-navy-900 hover:bg-neutral-50 active:bg-neutral-200",
+    "bg-transparent text-neutral-800 underline underline-offset-4 px-0 hover:text-cyan-400 active:opacity-70",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-sm",
-  md: "h-10 px-4 text-base",
-  lg: "h-12 px-6 text-lg",
+  sm: "h-[26px] px-3 text-xs",
+  md: "h-[34px] px-5 text-sm",
+  lg: "h-11 px-6 text-base",
 };
 
 /**
