@@ -22,6 +22,17 @@ export const palette = {
     900: "#04001E", // ink — texto principal
     border: "#305B9B", // borda sobre superfícies navy
   },
+  // Azuis-acinzentados (superfícies escuras)
+  blueGray: {
+    800: "#242C36", // Cinza Azulado 02
+    900: "#161B21", // Azul Cinza
+  },
+  // Verdes (feedback de sucesso)
+  green: {
+    400: "#70FF82", // Verde Neon
+    800: "#114A31", // Verde Escuro
+    900: "#03230D", // Verde Escuro 02
+  },
   // Neutros (paleta neutra.svg)
   neutral: {
     0: "#FFFFFF",

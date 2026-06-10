@@ -149,9 +149,9 @@ export function Select({
           gap: 8,
           padding: "0 12px 0 16px",
           borderRadius: 11.5,
-          border: "1px solid #305B9B",
-          background: "#061833",
-          color: "#A6D9DE",
+          border: "1px solid #242C36",
+          background: "#161B21",
+          color: "#E5E5E5",
           fontSize: 12,
           fontWeight: 400,
           cursor: disabled ? "not-allowed" : "pointer",
@@ -160,7 +160,7 @@ export function Select({
           transition: "border-color .15s",
         }}
         onFocus={(e) => (e.currentTarget.style.borderColor = "#0FC4D5")}
-        onBlur={(e) => (e.currentTarget.style.borderColor = "#305B9B")}
+        onBlur={(e) => (e.currentTarget.style.borderColor = "#242C36")}
       >
         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {selectedOption ? selectedOption.label : placeholder}
@@ -186,10 +186,10 @@ export function Select({
             margin: 0,
             padding: 2.5,
             listStyle: "none",
-            background: "#061833",
-            border: "1px solid #305B9B",
+            background: "#161B21",
+            border: "1px solid #242C36",
             borderRadius: 11.5,
-            boxShadow: "0 8px 24px rgba(4,0,30,.35)",
+            boxShadow: "0 8px 24px rgba(0,0,0,.4)",
             zIndex: 20,
             maxHeight: 240,
             overflowY: "auto",
@@ -214,11 +214,11 @@ export function Select({
                   height: 35,
                   padding: "0 14px 0 16px",
                   borderRadius: 12,
-                  color: opt.disabled ? "#5C7BA6" : "#A6D9DE",
+                  color: opt.disabled ? "#8F8F8F" : "#E5E5E5",
                   fontSize: 12,
                   fontWeight: 400,
                   cursor: opt.disabled ? "not-allowed" : "pointer",
-                  background: isActive && !opt.disabled ? "#122C53" : "transparent",
+                  background: isActive && !opt.disabled ? "#242C36" : "transparent",
                   transition: "background .12s",
                 }}
               >

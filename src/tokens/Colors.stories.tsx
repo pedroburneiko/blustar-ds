@@ -41,6 +41,8 @@ export const Paleta: Story = {
       <Group title="Cyan (marca)" group={palette.cyan} />
       <Group title="Blue" group={palette.blue} />
       <Group title="Navy" group={palette.navy} />
+      <Group title="Azul-acinzentado" group={palette.blueGray} />
+      <Group title="Verde (sucesso)" group={palette.green} />
       <Group title="Neutros" group={palette.neutral} />
     </div>
   ),
